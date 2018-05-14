@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~    Copyright 2018 Fabien Boismoreau
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,11 +14,15 @@
   ~    limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">Inventory App</string>
-    <string name="db_count">There is actually %1$d books to sell.</string>
-    <string name="insert_dummy_data">Insert dummy data</string>
-    <string name="delete_all">Delete all books</string>
-    <string name="new_book_inserted">New book inserted!</string>
-    <string name="problem_creating_book">Problem when creating the book!</string>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/insert_dummy_data"
+        android:title="@string/insert_dummy_data"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/delete_all"
+        android:title="@string/delete_all"
+        app:showAsAction="never" />
+</menu>
