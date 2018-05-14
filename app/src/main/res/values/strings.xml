@@ -16,4 +16,5 @@
 
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="db_count">There is actually %1$d books to sell.</string>
 </resources>

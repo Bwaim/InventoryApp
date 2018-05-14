@@ -33,6 +33,7 @@ public class BookStoreDbHelper extends SQLiteOpenHelper {
     private static final String CREATE_DATABASE = "CREATE TABLE " + BookEntrie.TABLE_NAME + " ("
             + BookEntrie._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + BookEntrie.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
+            + BookEntrie.COLUMN_PRICE + " INTEGER NOT NULL, "
             + BookEntrie.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
             + BookEntrie.COLUMN_SUPPLIER_NAME + " TEXT NOT NULL, "
             + BookEntrie.COLUMN_SUPPLIER_PHONE_NUMBER + " TEXT);";

@@ -33,11 +33,11 @@ public final class BookStoreContract {
 
         public static final String _ID = BaseColumns._ID;
 
-        public static final String COLUMN_PRODUCT_NAME = "Product Name";
+        public static final String COLUMN_PRODUCT_NAME = "ProductName";
         public static final String COLUMN_PRICE = "Price";
         public static final String COLUMN_QUANTITY = "Quantity";
-        public static final String COLUMN_SUPPLIER_NAME = "Supplier Name";
-        public static final String COLUMN_SUPPLIER_PHONE_NUMBER = "Supplier Phone Number";
+        public static final String COLUMN_SUPPLIER_NAME = "SupplierName";
+        public static final String COLUMN_SUPPLIER_PHONE_NUMBER = "SupplierPhoneNumber";
 
     }
 }
