@@ -125,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void deleteAll() {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.delete(BookEntrie.TABLE_NAME,
+                null,
+                null);
+    }
+
     /**
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.
@@ -181,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
                 displayDatabase();
                 return true;
             case R.id.delete_all:
+                deleteAll();
+                displayDatabase();
                 return true;
         }
 
