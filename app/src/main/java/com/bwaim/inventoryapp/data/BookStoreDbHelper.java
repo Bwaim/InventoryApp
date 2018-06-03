@@ -29,7 +29,9 @@ import com.bwaim.inventoryapp.data.BookStoreContract.BookEntrie;
 public class BookStoreDbHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
+
     private static final String DATABASE_NAME = "BookStore.db";
+
     private static final String CREATE_DATABASE = "CREATE TABLE " + BookEntrie.TABLE_NAME + " ("
             + BookEntrie._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + BookEntrie.COLUMN_PRODUCT_NAME + " TEXT NOT NULL, "
