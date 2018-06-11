@@ -23,7 +23,7 @@
     android:clickable="true"
     android:focusable="true"
     android:padding="@dimen/book_item_padding"
-    tools:showIn="@layout/books_list">
+    tools:showIn="@layout/activity_main">
 
     <TextView
         android:id="@+id/book_name"

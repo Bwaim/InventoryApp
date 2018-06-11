@@ -22,4 +22,5 @@
     <string name="new_book_inserted">New book inserted!</string>
     <string name="problem_creating_book">Problem when creating the book!</string>
     <string name="dollar_sell_action">Dollar sell action</string>
+    <string name="empty_store">Empty store</string>
 </resources>
