@@ -35,13 +35,32 @@
         tools:text="Book name" />
 
     <TextView
+        android:id="@+id/book_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/book_item_padding"
+        android:text="@string/price_label"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/book_name" />
+
+    <TextView
         android:id="@+id/book_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/book_item_padding"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/book_price_label"
         app:layout_constraintTop_toBottomOf="@id/book_name"
         tools:text="Book price" />
+
+    <TextView
+        android:id="@+id/book_quantity_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/book_item_padding"
+        android:text="@string/quantity_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/book_quantity"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/book_quantity"
@@ -57,7 +76,7 @@
         android:id="@+id/sell_book_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/book_item_padding"
+        android:layout_margin="@dimen/book_sell_item_padding"
         android:contentDescription="@string/dollar_sell_action"
         android:src="@drawable/ic_attach_money_blue"
         app:layout_constraintBottom_toBottomOf="parent"

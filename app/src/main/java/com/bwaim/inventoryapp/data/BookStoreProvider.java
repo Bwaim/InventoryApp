@@ -42,6 +42,7 @@ public class BookStoreProvider extends ContentProvider {
     private static final String LOG_TAG = BookStoreProvider.class.getSimpleName();
     private static final int BOOKS = 100;
     private static final int BOOK_ID = 101;
+    private static final int BOOK_SELL = 102;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -49,6 +50,9 @@ public class BookStoreProvider extends ContentProvider {
                 BookStoreContract.PATH_BOOKS, BOOKS);
         sUriMatcher.addURI(BookStoreContract.CONTENT_AUTHORITY,
                 BookStoreContract.PATH_BOOKS + "/#", BOOK_ID);
+        sUriMatcher.addURI(BookStoreContract.CONTENT_AUTHORITY,
+                BookStoreContract.PATH_BOOKS + "/" + BookStoreContract.PATH_SELL
+                        + "/#", BOOK_SELL);
     }
 
     private BookStoreDbHelper mDbHelper;
@@ -365,6 +369,16 @@ public class BookStoreProvider extends ContentProvider {
                 selection = BookEntrie._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateBook(uri, values, selection, selectionArgs);
+            case BOOK_SELL:
+                if (values == null) {
+                    throw new IllegalArgumentException("No values provided");
+                }
+                int quantity = values.getAsInteger(BookEntrie.COLUMN_QUANTITY);
+                ContentValues quantityValues = new ContentValues();
+                quantityValues.put(BookEntrie.COLUMN_QUANTITY, quantity);
+                selection = BookEntrie._ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateBook(uri, quantityValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }

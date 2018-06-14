@@ -16,17 +16,23 @@
 
 package com.bwaim.inventoryapp.adapter;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bwaim.inventoryapp.R;
 import com.bwaim.inventoryapp.data.BookStoreContract.BookEntrie;
+
+import java.text.NumberFormat;
 
 /**
  * Created by Fabien Boismoreau on 11/06/2018.
@@ -73,6 +79,7 @@ public class BookCursorAdapter extends CursorAdapter {
         TextView bookQuantityTV = view.findViewById(R.id.book_quantity);
         ImageView sellActionIV = view.findViewById(R.id.sell_book_button);
 
+        long id = cursor.getLong(cursor.getColumnIndex(BookEntrie._ID));
         String bookName = cursor.getString(cursor.getColumnIndex(BookEntrie.COLUMN_PRODUCT_NAME));
         int bookPrice = cursor.getInt(cursor.getColumnIndex(BookEntrie.COLUMN_PRICE));
         int bookQuantity = cursor.getInt(cursor.getColumnIndex(BookEntrie.COLUMN_QUANTITY));
@@ -84,7 +91,40 @@ public class BookCursorAdapter extends CursorAdapter {
         }
 
         bookNameTV.setText(bookName);
-        bookPriceTV.setText(String.valueOf(bookPrice));
+
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        bookPriceTV.setText(String.valueOf(format.format(bookPrice)));
         bookQuantityTV.setText(String.valueOf(bookQuantity));
+
+        sellActionIV.setOnClickListener(new sellOnClickListener(id, context, bookQuantityTV));
+    }
+
+    class sellOnClickListener implements View.OnClickListener {
+
+        long mId;
+        Context mContext;
+        TextView mQuantityTV;
+        Uri mUri;
+
+        sellOnClickListener(long id, Context context, TextView quantityTV) {
+            this.mId = id;
+            this.mContext = context;
+            this.mQuantityTV = quantityTV;
+            mUri = ContentUris.withAppendedId(BookEntrie.SELL_URI, id);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int quantity = Integer.valueOf(mQuantityTV.getText().toString()) - 1;
+
+            if (quantity < 0) {
+                Toast.makeText(mContext, R.string.sellUnavailable, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ContentValues values = new ContentValues();
+            values.put(BookEntrie.COLUMN_QUANTITY, quantity);
+            mContext.getContentResolver().update(mUri, values, null, null);
+        }
     }
 }

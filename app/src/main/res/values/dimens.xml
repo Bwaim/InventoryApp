@@ -16,4 +16,6 @@
 
 <resources>
     <dimen name="book_item_padding">8dp</dimen>
+    <dimen name="margin_fab">16dp</dimen>
+    <dimen name="book_sell_item_padding">16dp</dimen>
 </resources>

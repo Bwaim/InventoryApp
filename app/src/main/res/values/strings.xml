@@ -23,4 +23,7 @@
     <string name="problem_creating_book">Problem when creating the book!</string>
     <string name="dollar_sell_action">Dollar sell action</string>
     <string name="empty_store">Empty store</string>
+    <string name="price_label">price:</string>
+    <string name="sellUnavailable">This book can\'t be sold, not enough quantity</string>
+    <string name="quantity_label">Quantity:</string>
 </resources>

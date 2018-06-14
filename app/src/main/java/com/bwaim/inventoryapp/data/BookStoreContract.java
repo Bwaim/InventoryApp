@@ -28,9 +28,10 @@ public final class BookStoreContract {
 
     public static final String CONTENT_AUTHORITY = "com.bwaim.inventoryapp";
 
-    public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    public static final String PATH_SELL = "sell";
 
     public static final String PATH_BOOKS = "books";
+    static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     // To prevent instantiation
     private BookStoreContract() {}
@@ -38,6 +39,7 @@ public final class BookStoreContract {
     public static class BookEntrie implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_BOOKS);
+        public static final Uri SELL_URI = Uri.withAppendedPath(CONTENT_URI, PATH_SELL);
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_BOOKS;
