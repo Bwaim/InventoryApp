@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.bwaim.inventoryapp;
+package com.bwaim.inventoryapp.ui;
 
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -29,6 +29,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bwaim.inventoryapp.R;
 import com.bwaim.inventoryapp.adapter.BookCursorAdapter;
 import com.bwaim.inventoryapp.data.BookStoreContract.BookEntrie;
 import com.bwaim.inventoryapp.data.BookStoreDbHelper;
