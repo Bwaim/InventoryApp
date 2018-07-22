@@ -17,14 +17,20 @@
 package com.bwaim.inventoryapp.ui;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +38,6 @@ import android.widget.TextView;
 import com.bwaim.inventoryapp.R;
 import com.bwaim.inventoryapp.adapter.BookCursorAdapter;
 import com.bwaim.inventoryapp.data.BookStoreContract.BookEntrie;
-import com.bwaim.inventoryapp.data.BookStoreDbHelper;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -41,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
     private static final int BOOK_LOADER = 0;
 
-    private BookStoreDbHelper mDbHelper;
+    //private BookStoreDbHelper mDbHelper;
 
     private TextView emptyTV;
     private ListView listLV;
@@ -52,6 +57,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup FAB to open EditorActivity
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                startActivity(intent);
+            }
+        });
+
         emptyTV = findViewById(R.id.empty_view);
         listLV = findViewById(R.id.recycler_books_list);
 
@@ -61,63 +76,20 @@ public class MainActivity extends AppCompatActivity
 
         listLV.setEmptyView(emptyTV);
 
-        mDbHelper = new BookStoreDbHelper(this);
+        listLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent editorIntent = new Intent(MainActivity.this, EditorActivity.class);
+                Uri uri = ContentUris.withAppendedId(BookEntrie.CONTENT_URI, id);
+                editorIntent.setData(uri);
+                startActivity(editorIntent);
+            }
+        });
+
+        //mDbHelper = new BookStoreDbHelper(this);
 
         getLoaderManager().initLoader(BOOK_LOADER, null, this);
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        displayDatabase();
-//    }
-
-//    @SuppressWarnings("TryFinallyCanBeTryWithResources")
-//    private void displayDatabase() {
-//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-//
-//        String[] projection = {BookEntrie.COLUMN_PRODUCT_NAME,
-//                BookEntrie.COLUMN_PRICE,
-//                BookEntrie.COLUMN_QUANTITY,
-//                BookEntrie.COLUMN_SUPPLIER_NAME,
-//                BookEntrie.COLUMN_SUPPLIER_PHONE_NUMBER};
-//
-//        Cursor c = db.query(BookEntrie.TABLE_NAME,
-//                projection,
-//                null,
-//                null,
-//                null,
-//                null,
-//                null);
-//
-//        try {
-//            emptyTV.setText(getString(R.string.db_count, c.getCount()));
-//
-//            int indexProductName = c.getColumnIndex(BookEntrie.COLUMN_PRODUCT_NAME);
-//            int indexPrice = c.getColumnIndex(BookEntrie.COLUMN_PRICE);
-//            int indexQuantity = c.getColumnIndex(BookEntrie.COLUMN_QUANTITY);
-//            int indexSupplierName = c.getColumnIndex(BookEntrie.COLUMN_SUPPLIER_NAME);
-//            int indexSupplierPhone = c.getColumnIndex(BookEntrie.COLUMN_SUPPLIER_PHONE_NUMBER);
-//
-//            emptyTV.append("\n\n " +
-//                    BookEntrie.COLUMN_PRODUCT_NAME + " - " +
-//                    BookEntrie.COLUMN_PRICE + " - " +
-//                    BookEntrie.COLUMN_QUANTITY + " - " +
-//                    BookEntrie.COLUMN_SUPPLIER_NAME + " - " +
-//                    BookEntrie.COLUMN_SUPPLIER_PHONE_NUMBER + "\n");
-//
-//            while (c.moveToNext()) {
-//                emptyTV.append("\n " +
-//                        c.getString(indexProductName) + " - " +
-//                        c.getInt(indexPrice) + " - " +
-//                        c.getInt(indexQuantity) + " - " +
-//                        c.getString(indexSupplierName) + " - " +
-//                        c.getString(indexSupplierPhone));
-//            }
-//        } finally {
-//            c.close();
-//        }
-//    }
 
     private void insertDummyData() {
         ContentValues values = new ContentValues();

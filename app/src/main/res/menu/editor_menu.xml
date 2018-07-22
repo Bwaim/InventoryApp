@@ -14,9 +14,20 @@
   ~    limitations under the License.
   -->
 
-<resources>
-    <dimen name="book_item_padding">8dp</dimen>
-    <dimen name="margin_fab">16dp</dimen>
-    <dimen name="book_sell_item_padding">16dp</dimen>
-    <dimen name="common_padding">16dp</dimen>
-</resources>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".EditorActivity">
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/ic_done"
+        android:title="@string/action_save"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_delete"
+        android:title="@string/action_delete"
+        app:showAsAction="never" />
+
+</menu>
