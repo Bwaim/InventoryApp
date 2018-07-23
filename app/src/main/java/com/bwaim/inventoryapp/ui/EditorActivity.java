@@ -24,10 +24,12 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -111,7 +113,6 @@ public class EditorActivity extends AppCompatActivity
         minusIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* Initialize quantity to 1 because if the quantity is empty, it will be 1 */
                 int quantity = 0;
                 if (!TextUtils.isEmpty(mBookQuantityEditText.getText())) {
                     quantity = Integer.parseInt(mBookQuantityEditText.getText().toString().trim());
@@ -121,6 +122,29 @@ public class EditorActivity extends AppCompatActivity
                     quantity--;
                 }
                 mBookQuantityEditText.setText(String.valueOf(quantity));
+            }
+        });
+
+        ImageView supplierPhoneIc = findViewById(R.id.supplier_phone_ic);
+        supplierPhoneIc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = mSupplierPhoneEditText.getText().toString();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    phoneNumber = PhoneNumberUtils.formatNumber(phoneNumber, "FR");
+                } else {
+                    phoneNumber = PhoneNumberUtils.formatNumber(phoneNumber);
+                }
+                if (phoneNumber == null) {
+                    Toast.makeText(EditorActivity.this, getString(R.string.phone_invalid)
+                            , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phoneNumber));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
 

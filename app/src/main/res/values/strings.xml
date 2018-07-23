@@ -48,4 +48,5 @@
     <string name="cancel">Cancel</string>
     <string name="deleteBook">Book deleted</string>
     <string name="deleteError">Error while deleting book</string>
+    <string name="phone_invalid">The phone number is invalid</string>
 </resources>
