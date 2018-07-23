@@ -51,11 +51,31 @@
                 android:hint="@string/book_price"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/book_quantity"
-                style="@style/EditorFieldStyle"
-                android:hint="@string/book_quantity"
-                android:inputType="number" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/book_quantity"
+                    style="@style/EditorFieldStyle"
+                    android:hint="@string/book_quantity"
+                    android:inputType="number" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/quantity_add_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_box"
+                    app:layout_constraintRight_toLeftOf="@id/quantity_minus_ic" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/quantity_minus_ic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_indeterminate_check_box"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
         </LinearLayout>
 
     </LinearLayout>
