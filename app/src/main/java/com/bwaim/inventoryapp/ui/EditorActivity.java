@@ -35,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bwaim.inventoryapp.R;
@@ -92,6 +93,36 @@ public class EditorActivity extends AppCompatActivity
         mBookQuantityEditText = findViewById(R.id.book_quantity);
         mSupplierNameEditText = findViewById(R.id.supplier_name);
         mSupplierPhoneEditText = findViewById(R.id.supplier_phone);
+
+        ImageView addIv = findViewById(R.id.quantity_add_ic);
+        addIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* Initialize quantity to 1 because if the quantity is empty, it will be 1 */
+                int quantity = 1;
+                if (!TextUtils.isEmpty(mBookQuantityEditText.getText())) {
+                    quantity = Integer.parseInt(mBookQuantityEditText.getText().toString().trim());
+                }
+                mBookQuantityEditText.setText(String.valueOf(quantity + 1));
+            }
+        });
+
+        ImageView minusIv = findViewById(R.id.quantity_minus_ic);
+        minusIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* Initialize quantity to 1 because if the quantity is empty, it will be 1 */
+                int quantity = 0;
+                if (!TextUtils.isEmpty(mBookQuantityEditText.getText())) {
+                    quantity = Integer.parseInt(mBookQuantityEditText.getText().toString().trim());
+                }
+                /* Control to not have a quantity less than 0 */
+                if (quantity - 1 >= 0) {
+                    quantity--;
+                }
+                mBookQuantityEditText.setText(String.valueOf(quantity));
+            }
+        });
 
         mDbHelper = new BookStoreDbHelper(this);
 
