@@ -49,4 +49,8 @@
     <string name="deleteBook">Book deleted</string>
     <string name="deleteError">Error while deleting book</string>
     <string name="phone_invalid">The phone number is invalid</string>
+    <string name="book_name_empty">Book name should be filled!</string>
+    <string name="price_empty">Book price should be greater than 0</string>
+    <string name="quantity_empty">Book quantity should be positive</string>
+    <string name="supplier_name_empty">Supplier name should be filled!</string>
 </resources>

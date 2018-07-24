@@ -101,11 +101,12 @@ public class EditorActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 /* Initialize quantity to 1 because if the quantity is empty, it will be 1 */
-                int quantity = 1;
+                int quantity = 0;
                 if (!TextUtils.isEmpty(mBookQuantityEditText.getText())) {
                     quantity = Integer.parseInt(mBookQuantityEditText.getText().toString().trim());
                 }
                 mBookQuantityEditText.setText(String.valueOf(quantity + 1));
+                mBookHasChanged = true;
             }
         });
 
@@ -122,6 +123,7 @@ public class EditorActivity extends AppCompatActivity
                     quantity--;
                 }
                 mBookQuantityEditText.setText(String.valueOf(quantity));
+                mBookHasChanged = true;
             }
         });
 
@@ -203,24 +205,32 @@ public class EditorActivity extends AppCompatActivity
     }
 
     private boolean validData() {
-        boolean validBookName = !TextUtils.isEmpty(mBookNameEditText.getText());
-        boolean validPrice = false;
-        if (!TextUtils.isEmpty(mBookPriceEditText.getText())) {
-            validPrice = Integer.parseInt(mBookPriceEditText.getText().toString().trim()) > 0;
+        if (TextUtils.isEmpty(mBookNameEditText.getText())) {
+            Toast.makeText(this, R.string.book_name_empty, Toast.LENGTH_SHORT).show();
+            return false;
         }
-        boolean validQuantity = false;
-        if (!TextUtils.isEmpty(mBookQuantityEditText.getText())) {
-            validQuantity = Integer.parseInt(mBookQuantityEditText.getText().toString().trim()) >= 0;
+        if (TextUtils.isEmpty(mBookPriceEditText.getText())
+                || Integer.parseInt(mBookPriceEditText.getText().toString().trim()) == 0) {
+            Toast.makeText(this, R.string.price_empty, Toast.LENGTH_SHORT).show();
+            return false;
         }
-        boolean validSupplierName = !TextUtils.isEmpty(mSupplierNameEditText.getText());
+        if (TextUtils.isEmpty(mBookQuantityEditText.getText())
+                || Integer.parseInt(mBookQuantityEditText.getText().toString().trim()) < 0) {
+            Toast.makeText(this, R.string.quantity_empty, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (TextUtils.isEmpty(mSupplierNameEditText.getText())) {
+            Toast.makeText(this, R.string.supplier_name_empty, Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
-        return validBookName && validPrice && validQuantity && validSupplierName;
+        return true;
     }
 
-    private void saveBook() {
+    private boolean saveBook() {
 
         if (!validData()) {
-            return;
+            return false;
         }
 
         String bookName = mBookNameEditText.getText().toString().trim();
@@ -253,6 +263,8 @@ public class EditorActivity extends AppCompatActivity
                 Toast.makeText(this, getString(R.string.insertBook), Toast.LENGTH_SHORT).show();
             }
         }
+
+        return true;
     }
 
     private void showDeleteConfirmationDialog() {
@@ -335,8 +347,10 @@ public class EditorActivity extends AppCompatActivity
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                saveBook();
-                finish();
+                boolean saved = saveBook();
+                if (saved) {
+                    finish();
+                }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
