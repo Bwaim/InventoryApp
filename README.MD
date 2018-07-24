@@ -1,7 +1,7 @@
 # Inventory App
 ## Presentation
-This is the eighth project of the Android Basics Nanodegree.
-The goal of this project is to set up and use the database schema for an Book Store App.
+This is the eighth and nineth project of the Android Basics Nanodegree.
+The goal of this project is to design and create the structure of an Book Store App which would allow a store to keep track of its inventory.
 
 ## New Technicals Points
 * Use of contract to describe the database
@@ -11,4 +11,4 @@ The goal of this project is to set up and use the database schema for an Book St
 * use of delete query
 
 ## Screenshots
-to come!
+![Screenshots](./images/inventor_app.gif)
